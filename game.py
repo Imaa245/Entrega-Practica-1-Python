@@ -23,7 +23,7 @@ words = ["python", "programación", "computadora", "código", "desarrollo",
          "inteligencia"]
 
 # Elegir una palabra al azar
-secret_word = "código"
+secret_word = random.choice(words)
 
 # Número máximo de intentos permitidos
 max_attempts = 5
@@ -87,6 +87,9 @@ while True:
         if (max_attempts > 0):
             print(f"Te quedan {max_attempts} intentos")
         else:
+            # Mensaje de fin del juego
+            print(f"¡Oh no! Has alcanzado el número de fallos permitido.")
+            print(f"La palabra secreta era: {secret_word}")
             break
 
     # Mostrar la palabra parcialmente adivinada
@@ -104,8 +107,7 @@ while True:
                 letters.append(letter)
             else:
                 letters.append("_")
-        word_displayed = "".join(letters)
-        word_displayed = secret_word[0] + word_displayed + secret_word[-1]
+        word_displayed = secret_word[0] + "".join(letters) + secret_word[-1]
     print(f"Palabra: {word_displayed}")
             
 
@@ -113,8 +115,3 @@ while True:
     if word_displayed == secret_word:
         print(f"¡Felicidades! Has adivinado la palabra secreta: {secret_word}")
         break
-
-# Mensaje de fin del juego
-if (max_attempts == 0):
-    print(f"¡Oh no! Has alcanzado el número de fallos permitido.")
-    print(f"La palabra secreta era: {secret_word}")

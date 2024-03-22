@@ -23,7 +23,7 @@ words = ["python", "programación", "computadora", "código", "desarrollo",
          "inteligencia"]
 
 # Elegir una palabra al azar
-secret_word = random.choice(words)
+secret_word = "código"
 
 # Número máximo de intentos permitidos
 max_attempts = 5
@@ -37,7 +37,26 @@ print("Estoy pensando en una palabra. ¿Puedes adivinar cuál es?")
 print(f"Solo puedes fallar {max_attempts} veces")
 
 # Mostrar la palabra parcialmente adivinada
-word_displayed = "_" * len(secret_word)
+print("Modos: ")
+print ("1: Fácil: En la palabra a adivinar se muestran todas las vocales por defecto.")
+print ("2: Media: Se muestra la primer y la última letra de la palabra.")
+print ("3: Difícil: No se muestra ninguna letra de la palabra.")
+dificultad = int(input("Ingrese la dificultad (1 a 3): "))
+aux = []
+match (dificultad):
+    case 1:
+        for letra in secret_word:
+            if letra in "aeiou":
+                guessed_letters.append(letra)
+                aux.append(letra)
+            else:
+                aux.append("_")
+        word_displayed = "".join(aux)
+    case 2:
+        word_displayed = f"{secret_word[0]}{'_' * (len(secret_word) - 2)}{secret_word[-1]}"
+        print("Ten en cuenta que a pesar de que la primer y última letra se hayan mostrado, se pueden repetir")
+    case 3:
+        word_displayed = "_" * len(secret_word)
 print(f"Palabra: {word_displayed}")
 
 # Bucle principal del juego
@@ -72,13 +91,23 @@ while True:
 
     # Mostrar la palabra parcialmente adivinada
     letters = []
-    for letter in secret_word:
-        if letter in guessed_letters:
-            letters.append(letter)
-        else:
-            letters.append("_")
-    word_displayed = "".join(letters)
+    if (dificultad != 2):
+        for letter in secret_word:
+            if letter in guessed_letters:
+                letters.append(letter)
+            else:
+                letters.append("_")
+        word_displayed = "".join(letters)
+    else:
+        for letter in secret_word[1:-1]:
+            if letter in guessed_letters:
+                letters.append(letter)
+            else:
+                letters.append("_")
+        word_displayed = "".join(letters)
+        word_displayed = secret_word[0] + word_displayed + secret_word[-1]
     print(f"Palabra: {word_displayed}")
+            
 
     # Verificar si se ha adivinado la palabra completa
     if word_displayed == secret_word:
